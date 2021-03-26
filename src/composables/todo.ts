@@ -62,6 +62,9 @@ export const useFindTodo = () => {
   }
   const findTodo = (id: number) =>  {
     const todo = todos.value.find(v => v.id === id)
+    if (todo === undefined) {
+      throw new Error()
+    }
     return todo
   }
   return { findTodo }
@@ -77,6 +80,7 @@ export const useUpdateTodo = () => {
       if (v.id === todo.id) return todo
       return v
     })
+    todos.value = dirtyTodos
   }
   return { updateTodo }
 }
