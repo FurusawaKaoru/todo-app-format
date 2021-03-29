@@ -1,7 +1,7 @@
 <template>
   <h1 class="text-left text-xl font-bold">TODO一覧</h1>
   <div class="mt-5">
-    <router-link :to="{ name: 'new' }">
+    <router-link :to="{ name: 'create' }">
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         新規作成
       </button>
@@ -26,6 +26,12 @@
             編集
           </button>
         </router-link>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          @click="deleteTodo(todo.id)"
+        >
+          削除
+        </button>
       </td>
     </tr>
   </table>
@@ -33,12 +39,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useTodos } from '~/composables/todo'
+import { useTodos, useDeleteTodo } from '~/composables/todo'
 
 export default defineComponent({
   setup() {
     const { todos } = useTodos()
-    return { todos }
+    const { deleteTodo } = useDeleteTodo()
+    
+    return { todos, deleteTodo }
   },
 })
 </script>

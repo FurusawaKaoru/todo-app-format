@@ -42,8 +42,8 @@ import { useCreateTodo } from '~/composables/todo'
 export default defineComponent({
   setup() {
     const router = useRouter()
-    const { createTodoId, createTodo } = useCreateTodo()
-    const id = ref<number>(createTodoId())
+    const { createTodo } = useCreateTodo()
+    const id = ref<string>(Math.random().toString(36).slice(-8))
     const title = ref<string>('')
     const submit = () => {
       createTodo(id.value, title.value)

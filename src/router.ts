@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Index from '~/pages/Index.vue'
-import New from '~/pages/todo/New.vue'
+import Create from '~/pages/todo/Create.vue'
 import Edit from '~/pages/todo/Edit.vue'
 
 export const router = createRouter({
@@ -13,8 +13,8 @@ export const router = createRouter({
     },
     {
       path: '/todo/',
-      name: 'new',
-      component: New,
+      name: 'create',
+      component: Create,
     },
     {
       path: '/todo/:id',

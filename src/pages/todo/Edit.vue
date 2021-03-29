@@ -44,9 +44,9 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const { findTodo } = useFindTodo()
-    const todo = findTodo(Number(route.params.id))
+    const { updateTodo } = useUpdateTodo()
+    const todo = findTodo(String(route.params.id))
     const submit = () => {
-      const { updateTodo } = useUpdateTodo()
       updateTodo(todo)
       router.push('/')
     }

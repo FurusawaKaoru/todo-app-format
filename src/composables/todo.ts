@@ -8,7 +8,7 @@ import {
 } from 'vue'
 
 export type Todo = {
-  id: number
+  id: string
   title: string
   visible: boolean
   click: () => void
@@ -39,10 +39,7 @@ export const useCreateTodo = () => {
   if (todos === undefined) {
     throw new Error()
   }
-  const createTodoId = () => {
-    return Math.floor( Math.random() * 110 )
-  }
-  const createTodo = (id: number, title: string) => {
+  const createTodo = (id: string, title: string) => {
     const todo: Todo = reactive<Todo>({
       id,
       title,
@@ -52,7 +49,7 @@ export const useCreateTodo = () => {
     todos.value.push(todo)
     return todo
   }
-  return { createTodoId, createTodo }
+  return { createTodo }
 }
 
 export const useFindTodo = () => {
@@ -60,7 +57,7 @@ export const useFindTodo = () => {
   if (todos === undefined) {
     throw new Error()
   }
-  const findTodo = (id: number) =>  {
+  const findTodo = (id: string) =>  {
     const todo = todos.value.find(v => v.id === id)
     if (todo === undefined) {
       throw new Error()
@@ -83,4 +80,18 @@ export const useUpdateTodo = () => {
     todos.value = dirtyTodos
   }
   return { updateTodo }
+}
+
+export const useDeleteTodo = () => {
+  const todos = inject(Todos)
+  if (todos === undefined) {
+    throw new Error()
+  }
+  const deleteTodo = (id: string) => {
+    const dirtyTodos = todos.value.filter(v => {
+      return v.id !== id
+    })
+    todos.value = dirtyTodos
+  }
+  return { deleteTodo }
 }
