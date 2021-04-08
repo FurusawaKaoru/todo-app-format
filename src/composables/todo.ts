@@ -10,8 +10,8 @@ import {
 export type Todo = {
   id: string
   title: string
-  visible: boolean
-  click: () => void
+  deadline: Date
+  favorite: boolean
 }
 
 const Todos: InjectionKey<Ref<Todo[]>> = Symbol()
@@ -39,12 +39,12 @@ export const useCreateTodo = () => {
   if (todos === undefined) {
     throw new Error()
   }
-  const createTodo = (id: string, title: string) => {
+  const createTodo = (id: string, title: string, deadline: Date, favorite: boolean) => {
     const todo: Todo = reactive<Todo>({
       id,
       title,
-      visible: false,
-      click: () => (todo.visible = true)
+      deadline,
+      favorite
     })
     todos.value.push(todo)
     return todo

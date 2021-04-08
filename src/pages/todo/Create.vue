@@ -21,10 +21,38 @@
         placeholder="Title"
       >
     </div>
+    <div class="flex">
+      <label
+        class="w-1/5 block text-gray-700 text-center text-sm font-bold mb-2"
+        for="deadline"
+      >
+        締め切り
+      </label>
+      <input
+        id="deadline"
+        v-model="deadline"
+        class="w-4/5 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="date"
+        placeholder="deadline"
+      >
+    </div>
+    <div class="flex">
+      <label
+        class="w-1/5 block text-gray-700 text-center text-sm font-bold mb-2"
+        for="deadline"
+      >
+        お気に入り
+      </label>
+      <input
+        id="deadline"
+        v-model="favorite"
+        type="checkbox"
+      >
+    </div>
 
     <div class="text-center mt-5">
       <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        class="primary-btn"
         type="submit"
         form="todo"
       >
@@ -45,17 +73,25 @@ export default defineComponent({
     const { createTodo } = useCreateTodo()
     const id = ref<string>(Math.random().toString(36).slice(-8))
     const title = ref<string>('')
+    const deadline = ref<Date>(new Date())
+    const favorite = ref<boolean>(false)
     const submit = () => {
-      createTodo(id.value, title.value)
+      createTodo(id.value, title.value, deadline.value, favorite.value)
       router.push('/')
     }
     return {
       id,
       title,
+      deadline,
+      favorite,
       submit
     }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.primary-btn {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+}
+</style>
